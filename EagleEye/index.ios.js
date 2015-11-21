@@ -5,6 +5,8 @@
 'use strict';
 
 var React = require('react-native');
+var PlaneMap = require('./components/PlaneMap');
+var AppTabBar = require('./components/AppTabBar');
 var {
   AppRegistry,
   StyleSheet,
@@ -16,6 +18,7 @@ var EagleEye = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
+        <PlaneMap/>
         <Text style={styles.welcome}>
           Welcome to Stuff!
         </Text>
@@ -26,6 +29,7 @@ var EagleEye = React.createClass({
           Press Cmd+R to reload,{'\n'}
           Cmd+D or shake for dev menu
         </Text>
+        <AppTabBar/>
       </View>
     );
   }
