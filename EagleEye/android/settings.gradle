@@ -1,0 +1,3 @@
+rootProject.name = 'EagleEye'
+
+include ':app'
