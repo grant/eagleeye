@@ -6,9 +6,9 @@ Track the flights of your friends and family. Built with [React Native](https://
 
 # Screenshots
 
-![](./design/screenshot/map.jpg)
-![](./design/screenshot/flights.jpg)
-![](./design/screenshot/settings.jpg)
+<img src="./design/screenshot/map.jpg" width="50%"/>
+<img src="./design/screenshot/flights.jpg" width="50%"/>
+<img src="./design/screenshot/settings.jpg" width="50%"/>
 
 # Quickstart
 
