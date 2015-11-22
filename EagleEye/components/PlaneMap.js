@@ -98,8 +98,3 @@ var styles = StyleSheet.create({
 });
 
 module.exports = PlaneMap;
-// exports.displayName = (undefined: ?string);
-// exports.title = '<PlaneMap>';
-// exports.description = 'A map full of planes and plane trails';
-
-// AppRegistry.registerComponent('PlaneMap', () => PlaneMap);

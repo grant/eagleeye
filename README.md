@@ -1,6 +1,9 @@
 # EagleEye
 Track the flights of your eaglets.
 
+`EagleEye` - The iOS App
+`EagleServer` - The server backend
+
 # Built with
 
 ## APIs/Services

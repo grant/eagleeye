@@ -4,6 +4,7 @@
 'use strict';
 
 var React = require('react-native');
+var FlightPage = require('./FlightPage');
 var {
   Component,
   View,
@@ -44,8 +45,9 @@ const TABS = {
 class AppTabBar extends Component {
   static get displayName() { return 'TabBarExample' }
 
-  getInitialState() {
-    return {
+  constructor() {
+    super();
+    this.state = {
       selectedTabTitle: TABS.EAGLE_EYE.title,
     };
   }
@@ -55,6 +57,9 @@ class AppTabBar extends Component {
     switch (tabTitle) {
       case 'Flights':
         color = 'blue';
+        return (
+          <FlightPage/>
+        );
         break;
       case 'Eagle Eye':
         color = 'green';
@@ -73,12 +78,11 @@ class AppTabBar extends Component {
   }
 
   _renderTab(tabData: object) {
-    var state = this.state || this.getInitialState();
     return (
       <TabBarIOS.Item
         title={tabData.title}
         icon={tabData.icon}
-        selected={state.selectedTabTitle === tabData.title}
+        selected={this.state.selectedTabTitle === tabData.title}
         onPress={() => {
           this.setState({
             selectedTabTitle: tabData.title
