@@ -31,6 +31,7 @@ class PlaneMap extends Component {
           title: 'Foo Place',
           subtitle: '1234 Foo Drive'
         }]}
+        rotateEnabled={false}
         onRegionChange={this._onRegionChange.bind(this)}
         onRegionChangeComplete={this._onRegionChangeComplete.bind(this)}
         region={state.mapRegion}

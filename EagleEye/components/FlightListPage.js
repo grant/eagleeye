@@ -4,25 +4,28 @@
 'use strict';
 
 var React = require('react-native');
+var Globals = require('./Globals');
 var {
   Component,
   ListView,
   StyleSheet,
   View,
-  NavigatorIOS,
   Text,
+  TouchableHighlight,
 } = React;
 
-var REQUEST_URL = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apiKey=7waqfqbprs7pajbz28mqf6vz'
+// var REQUEST_URL = 'http://localhost:3000/flights'
+var REQUEST_URL = 'http://baf027f1.ngrok.io/flights'
 
 class FlightListPage extends Component {
   constructor() {
     super();
     this.state = {
+      rows: [],
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
-      loaded: false,
+      loaded: false
     };
   }
 
@@ -35,7 +38,8 @@ class FlightListPage extends Component {
       .then((response) => response.json())
       .then((responseData) => {
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
+          rows: responseData,
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
         });
       })
@@ -51,7 +55,7 @@ class FlightListPage extends Component {
       <View style={styles.listViewContainer}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderFlight}
+          renderRow={this.renderFlight.bind(this)}
           style={styles.listView}
         />
       </View>
@@ -66,16 +70,40 @@ class FlightListPage extends Component {
     );
   }
 
+  _onDelete(flight, event) {
+    var updatedRows = this.state.rows.filter(function(row) {
+      return row.id !== flight.id;
+    });
+    this.setState({
+      rows: updatedRows,
+      dataSource: this.state.dataSource.cloneWithRows(updatedRows),
+    });
+  }
+
   renderFlight(flight) {
     return (
-      <View style={styles.container}>
-        <Text>{flight.from + '➜' + flight.to}</Text>
+      <View style={styles.listItem}>
+        <Text style={styles.flightId}>{flight.flightId}</Text>
+        <Text style={[styles.flightInfo, styles.airport]}>{'    ' + flight.from}</Text>
+        <Text style={styles.flightInfo}>{'  →  '}</Text>
+        <Text style={[styles.flightInfo, styles.airport]}>{flight.to}</Text>
+        <TouchableHighlight
+          style={styles.delete}
+          onPress={this._onDelete.bind(this, flight)}
+          >
+          <Text style={styles.x}>✖</Text>
+        </TouchableHighlight>
       </View>
     );
   }
 }
-FlightListPage.propTypes= {
+FlightListPage.propTypes = {
   nav: React.PropTypes.any
+};
+
+const fontStyles = {
+  fontFamily: 'Helvetica Neue',
+  fontWeight: '100',
 };
 
 var styles = StyleSheet.create({
@@ -86,26 +114,46 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  listItem: {
+    flex: 1,
+    paddingTop: 20,
+    height: 100,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderBottomColor: Globals.colors.gray,
+    borderBottomWidth: 1,
+  },
+  airport: {
+    fontWeight: '700'
+  },
+  flightInfo: {
+    fontSize: 40,
+    ...fontStyles,
+  },
+  flightId: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    ...fontStyles,
+  },
   rightContainer: {
     flex: 1,
   },
-  title: {
+  delete: {
+    width: 100,
+    alignItems: 'flex-end',
+  },
+  x: {
     fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  year: {
-    textAlign: 'center',
-  },
-  thumbnail: {
-    width: 53,
-    height: 81,
   },
   listView: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
   },
   listViewContainer: {
+    flex: 1,
+    backgroundColor: 'rgb(231, 231, 231)',
     marginTop: 64,
   }
 });

@@ -17,7 +17,7 @@ function connectToDB(cb) {
     console.log("Connected correctly to server");
 
     DB = db;
-    DB.flights.createIndex({date: -1});
+    // DB.flights.createIndex({date: -1});
     cb();
   });
 }
@@ -64,9 +64,9 @@ function getData() {
 }
 
 function startCRON() {
-  connectToDB(function() {
-    setInterval(getData, downloadFrequency);
-  });
+  // connectToDB(function() {
+  //   setInterval(getData, downloadFrequency);
+  // });
 }
 
 module.exports.startCRON = startCRON;

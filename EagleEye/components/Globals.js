@@ -16,8 +16,8 @@ const Globals = {
     primaryLightest: colorRedLightest,
     primaryLighter: colorRedLighter,
     primaryLight: colorRedLight,
-    colorGray: colorGray,
-    colorGrayDark: colorGrayDark,
+    gray: colorGray,
+    grayDark: colorGrayDark,
   }
 };
 

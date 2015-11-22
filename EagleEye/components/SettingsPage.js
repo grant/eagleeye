@@ -149,7 +149,7 @@ var styles = StyleSheet.create({
     top: 20,
     left: 0,
     fontSize: 20,
-    color: Globals.colors.darkGray,
+    color: Globals.colors.grayDark,
     ...fontStyles,
   },
   phoneInput: {
