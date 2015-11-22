@@ -1,11 +1,14 @@
 # EagleEye
-Track the flights of your friends and family.
+Track the flights of your friends and family. Built with [React Native](https://facebook.github.io/react-native/).
+**Devpost:** http://devpost.com/software/eagle-eye
 
 <img src="./design/icon1024.png" width="400px" height="400px" />
 
-http://devpost.com/software/eagle-eye
-
 # Screenshots
+
+![](./design/screenshot/map.jpg)
+![](./design/screenshot/flights.jpg)
+![](./design/screenshot/settings.jpg)
 
 # Quickstart
 
