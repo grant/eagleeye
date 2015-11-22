@@ -50,10 +50,12 @@ class SettingsPage extends Component {
       <View style={styles.settingsPage}>
         <View style={styles.headerContainer}>
           <View style={styles.header}>
-            <Image
-              style={styles.profileImage}
-              source={require('../images/profile.jpg')}
-              />
+            <View style={styles.profileImageContainer}>
+              <Image
+                style={styles.profileImage}
+                source={require('../images/profile.jpg')}
+                />
+            </View>
             <Text style={styles.fullName}>Grant Timmerman</Text>
           </View>
         </View>
