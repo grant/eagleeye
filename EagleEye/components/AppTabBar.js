@@ -50,7 +50,8 @@ class AppTabBar extends Component {
   constructor() {
     super();
     this.state = {
-      selectedTabTitle: TABS.EAGLE_EYE.title,
+      // selectedTabTitle: TABS.EAGLE_EYE.title,
+      selectedTabTitle: TABS.SETTINGS.title,
     };
   }
 

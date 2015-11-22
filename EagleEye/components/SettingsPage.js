@@ -13,9 +13,38 @@ var {
   TextInput,
   View,
   Text,
+  TouchableHighlight,
 } = React;
 
+const phoneMaxLength = 10;
+const fakePhoneNumber = '123 456 7890'
+
 class SettingsPage extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      isEditing: false,
+      phoneNumber: fakePhoneNumber,
+    };
+  }
+
+  /**
+   * When clicking the edit button. Toggle the edit state.
+   */
+  _onToggleEdit() {
+    this.setState({
+      isEditing: !this.state.isEditing
+    });
+  }
+
+  /**
+   * Formats a phone number with spaces
+   */
+  _formatNumber(phone) {
+    return [phone.substr(0, 3),phone.substr(3, 3), phone.substr(6,4)].join(' ').trim();
+  }
+
   render() {
     return (
       <View style={styles.settingsPage}>
@@ -30,14 +59,38 @@ class SettingsPage extends Component {
         </View>
         <View style={styles.body}>
           <Text style={styles.phoneTitle}>Phone Number</Text>
-          <TextInput
-            style={styles.phoneInput}
-            keyboardType={'phone-pad'}
-            placeholder={'123 456 7890'}
-            keyboardAppearance={'light'}
-            onEndEditing={(e) => {
-              debugger;
-            }}/>
+          <TouchableHighlight onPress={this._onToggleEdit.bind(this)}>
+            <Image
+              style={styles.editImage}
+              source={require('../images/edit.png')}
+              />
+          </TouchableHighlight>
+          {this.state.isEditing ? (
+            <TextInput
+              style={styles.phoneInput}
+              keyboardType={'phone-pad'}
+              placeholder={this.state.phoneNumber}
+              keyboardAppearance={'light'}
+              clearTextOnFocus={true}
+              maxLength={phoneMaxLength}
+              onChangeText={(phone) => {
+                var newData = {
+                  phoneNumber: this._formatNumber(phone)
+                };
+                if (phone.replace(/ /g,'').length === phoneMaxLength) {
+                  newData.isEditing = false;
+                }
+                this.setState(newData);
+              }}
+              onEndEditing={(phone) => {
+                this.setState({
+                  phoneNumber: this._formatNumber(phone),
+                  isEditing: false,
+                })
+              }}/>
+          ) : (
+            <Text style={styles.currentNumber}>{this.state.phoneNumber}</Text>
+          )}
         </View>
       </View>
     );
@@ -45,6 +98,12 @@ class SettingsPage extends Component {
 }
 
 const profileImageSize = 150;
+
+const fontStyles = {
+  fontFamily: 'Helvetica Neue',
+  fontWeight: '100',
+};
+
 var styles = StyleSheet.create({
   settingsPage: {
     backgroundColor: Globals.colors.gray,
@@ -59,6 +118,13 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Globals.colors.primary,
   },
+  editImage: {
+    position: 'absolute',
+    top: 25,
+    right: 0,
+    width: 25,
+    height: 25,
+  },
   profileImage: {
     width: profileImageSize,
     height: profileImageSize,
@@ -67,24 +133,36 @@ var styles = StyleSheet.create({
     borderWidth: 1,
   },
   body: {
-    margin: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
   fullName: {
     marginTop: 20,
     color: 'white',
-    fontWeight: '100',
     fontSize: 30,
-    fontFamily: 'Helvetica Neue',
+    ...fontStyles,
   },
   phoneTitle: {
-    fontSize: 30,
+    position: 'absolute',
+    top: 20,
+    left: 0,
+    fontSize: 20,
     color: Globals.colors.darkGray,
+    ...fontStyles,
   },
   phoneInput: {
+    top: 56,
     fontSize: 30,
     flex: 1,
     height: 50,
   },
+  currentNumber: {
+    position: 'absolute',
+    top: 60,
+    fontSize: 32,
+    ...fontStyles,
+    fontWeight: '400',
+  }
 });
 
 module.exports = SettingsPage;
