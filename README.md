@@ -1,7 +1,7 @@
 # EagleEye
 Track the flights of your friends and family.
 
-![](./design/icon1024.png)
+<img src="./design/icon1024.png" width="400px" height="400px" />
 
 http://devpost.com/software/eagle-eye
 
