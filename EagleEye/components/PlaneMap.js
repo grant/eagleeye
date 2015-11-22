@@ -25,6 +25,12 @@ class PlaneMap extends Component {
     return (
       <MapView
         style={styles.map}
+        annotations={[{
+          latitude: 45.65,
+          longitude: -78.90,
+          title: 'Foo Place',
+          subtitle: '1234 Foo Drive'
+        }]}
         onRegionChange={this._onRegionChange.bind(this)}
         onRegionChangeComplete={this._onRegionChangeComplete.bind(this)}
         region={state.mapRegion}
