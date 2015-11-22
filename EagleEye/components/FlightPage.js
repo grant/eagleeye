@@ -4,75 +4,50 @@
 'use strict';
 
 var React = require('react-native');
+var FlightDetailPage = require('./FlightDetailPage');
+var FlightListPage = require('./FlightListPage');
+var AddFlightPage = require('./AddFlightPage');
 var {
   Component,
   ListView,
   StyleSheet,
   View,
+  NavigatorIOS,
   Text,
 } = React;
 
-var REQUEST_URL = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apiKey=7waqfqbprs7pajbz28mqf6vz'
-
 class FlightPage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      dataSource: new ListView.DataSource({
-        rowHasChanged: (row1, row2) => row1 !== row2,
-      }),
-      loaded: false,
-    };
-  }
-
-  componentDidMount() {
-    this.fetchData();
-  }
-
-  fetchData() {
-    fetch(REQUEST_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.movies),
-          loaded: true,
-        });
-      })
-      .done();
+  onRightButtonPress() {
+    this.refs.nav.push({
+      title: 'Add Flight',
+      component: AddFlightPage,
+      passProps: {
+      }
+    });
   }
 
   render() {
-    if (!this.state.loaded) {
-      return this.renderLoadingView();
-    }
-
     return (
-      <ListView
-        dataSource={this.state.dataSource}
-        renderRow={this.renderFlight}
-        style={styles.listView}
+      <NavigatorIOS
+        ref="nav"
+        style={styles.navigator}
+        initialRoute={{
+          component: FlightListPage,
+          title: 'Flights',
+          rightButtonTitle: '➕',
+          onRightButtonPress: this.onRightButtonPress.bind(this),
+          passProps: {
+          },
+        }}
       />
-    );
-  }
-
-  renderLoadingView() {
-    return (
-      <View style={styles.container}>
-        <Text>Loading flights...</Text>
-      </View>
-    );
-  }
-
-  renderFlight(flight) {
-    return (
-      <View style={styles.container}>
-        <Text>{flight.from + '➜' + flight.to}</Text>
-      </View>
     );
   }
 }
 
 var styles = StyleSheet.create({
+  navigator: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     flexDirection: 'row',

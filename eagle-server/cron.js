@@ -30,6 +30,7 @@ function getData() {
       delete json.full_count;
       delete json.version;
       // Add all records to mongod
+      // 16: flight id
       var d = +new Date;
       var records = [];
       for (var i in json)  {

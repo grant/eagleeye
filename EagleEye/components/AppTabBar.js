@@ -4,6 +4,7 @@
 'use strict';
 
 var React = require('react-native');
+var Globals = require('./Globals');
 var FlightPage = require('./FlightPage');
 var MapPage = require('./MapPage');
 var SettingsPage = require('./SettingsPage');
@@ -51,7 +52,7 @@ class AppTabBar extends Component {
     super();
     this.state = {
       // selectedTabTitle: TABS.EAGLE_EYE.title,
-      selectedTabTitle: TABS.SETTINGS.title,
+      selectedTabTitle: TABS.FLIGHTS.title,
     };
   }
 
@@ -104,7 +105,7 @@ class AppTabBar extends Component {
     // Tab bar
     return (
       <TabBarIOS
-        tintColor="blue"
+        tintColor={Globals.colors.primary}
         barTintColor="white">
         {tabBarItems}
       </TabBarIOS>
@@ -124,8 +125,6 @@ var styles = StyleSheet.create({
   mapPage: {
     flex: 1,
     backgroundColor: 'green',
-  },
-  settingsPage: {
   },
 });
 
