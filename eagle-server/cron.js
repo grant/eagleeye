@@ -5,7 +5,9 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var request = require('request');
 
-var US_FLIGHTS_URL = 'http://data.flightradar24.com/zones/fcgi/feed.js?bounds=56.13271372224092,4.772810565471144,-130.2324952148433,-62.841796875';
+// var US_FLIGHTS_URL = 'http://data.flightradar24.com/zones/fcgi/feed.js?bounds=56.13271372224092,4.772810565471144,-130.2324952148433,-62.841796875';
+// Cal
+var US_FLIGHTS_URL = 'http://data.flightradar24.com/zones/fcgi/feed.js?bounds=40.87813547855707,34.208015737739174,-126.83645200553883,-122.23388671875';
 
 var DB;
 function connectToDB(cb) {
@@ -19,15 +21,6 @@ function connectToDB(cb) {
     DB = db;
     // DB.flights.createIndex({date: -1});
     cb();
-  });
-}
-
-function getFlightData(flightId) {
-  var FLIGHT_QUERY_URL = 'http://api.flightradar24.com/common/v1/flight/list.json';
-  var url = FLIGHT_QUERY_URL + '?query=' + flightId + '&fetchBy=flight';
-  request(url, function(err, res) {
-    var json = JSON.parse(res);
-    console.log(json);
   });
 }
 

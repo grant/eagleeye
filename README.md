@@ -1,8 +1,10 @@
 # EagleEye
-Track the flights of your eaglets.
+Track the flights of your friends and family.
 
-`EagleEye` - The iOS App
-`EagleServer` - The server backend
+http://devpost.com/software/eagle-eye
+
+- `EagleEye` - The iOS App
+- `EagleServer` - The server backend
 
 # Built with
 

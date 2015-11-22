@@ -18,7 +18,8 @@ const Globals = {
     primaryLight: colorRedLight,
     gray: colorGray,
     grayDark: colorGrayDark,
-  }
+  },
+  url: 'http://baf027f1.ngrok.io',
 };
 
 module.exports = Globals;

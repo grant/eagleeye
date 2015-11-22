@@ -15,7 +15,8 @@ var {
 } = React;
 
 // var REQUEST_URL = 'http://localhost:3000/flights'
-var REQUEST_URL = 'http://baf027f1.ngrok.io/flights'
+var REQUEST_URL = Globals.url + '/flights'
+var REQUEST_DELETE_URL = Globals.url + '/flightdel/'
 
 class FlightListPage extends Component {
   constructor() {
@@ -25,8 +26,11 @@ class FlightListPage extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
-      loaded: false
+      refreshCount: 0
     };
+    setInterval(() => {
+      this.fetchData();
+    }, 5000);
   }
 
   componentDidMount() {
@@ -40,14 +44,14 @@ class FlightListPage extends Component {
         this.setState({
           rows: responseData,
           dataSource: this.state.dataSource.cloneWithRows(responseData),
-          loaded: true,
+          refreshCount: this.state.refreshCount + 1,
         });
       })
       .done();
   }
 
   render() {
-    if (!this.state.loaded) {
+    if (!this.state.refreshCount) {
       return this.renderLoadingView();
     }
 
@@ -74,10 +78,21 @@ class FlightListPage extends Component {
     var updatedRows = this.state.rows.filter(function(row) {
       return row.id !== flight.id;
     });
-    this.setState({
-      rows: updatedRows,
-      dataSource: this.state.dataSource.cloneWithRows(updatedRows),
-    });
+    fetch(REQUEST_DELETE_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        flightId: flight.id
+      })
+    }).then(() => {
+      this.setState({
+        rows: updatedRows,
+        dataSource: this.state.dataSource.cloneWithRows(updatedRows),
+      });
+    })
   }
 
   renderFlight(flight) {

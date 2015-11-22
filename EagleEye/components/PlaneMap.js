@@ -28,10 +28,21 @@ class PlaneMap extends Component {
         annotations={[{
           latitude: 45.65,
           longitude: -78.90,
-          title: 'Foo Place',
-          subtitle: '1234 Foo Drive'
+          title: 'Eric',
+          subtitle: '40 min away'
+        },{
+          latitude: 41.378792,
+          longitude: -104.043376,
+          title: 'Michelle',
+          subtitle: '1h 40m away'
+        }, {
+          latitude: 34.361792,
+          longitude: -80.823137,
+          title: 'Cathryn',
+          subtitle: '1h 2m away'
         }]}
         rotateEnabled={false}
+        showsUserLocation={true}
         onRegionChange={this._onRegionChange.bind(this)}
         onRegionChangeComplete={this._onRegionChangeComplete.bind(this)}
         region={state.mapRegion}

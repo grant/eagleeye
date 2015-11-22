@@ -4,6 +4,7 @@
 'use strict';
 
 var React = require('react-native');
+var Globals = require('./Globals');
 var {
   Component,
   ListView,
@@ -14,11 +15,35 @@ var {
   Text,
 } = React;
 
-var REQUEST_URL = 'http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apiKey=7waqfqbprs7pajbz28mqf6vz'
+var REQUEST_URL = Globals.url + '/flight';
 
 class AddFlightPage extends Component {
-  onAddFlightNumber(flightNumber) {
+
+  constructor() {
+    super();
+    this.state = {
+      flightNumber: ''
+    };
+  }
+
+  onAddFlightNumber() {
+    fetch(REQUEST_URL, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        flightId: this.state.flightNumber
+      })
+    });
     this.props.navigator.pop();
+  }
+
+  onChange(e, f) {
+    this.setState({
+      flightNumber: e.nativeEvent.text
+    });
   }
 
   render() {
@@ -33,6 +58,7 @@ class AddFlightPage extends Component {
           keyboardAppearance={'light'}
           autoCapitalize={'characters'}
           autoCorrect={false}
+          onChange={this.onChange.bind(this)}
           onEndEditing={this.onAddFlightNumber.bind(this)}/>
       </View>
     );
