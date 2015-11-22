@@ -23,15 +23,12 @@ class PlaneMap extends Component {
   render() {
     var state = this.state || this.getInitialState();
     return (
-      <View>
-        <Text>hello</Text>
-        <MapView
-          style={styles.map}
-          onRegionChange={this._onRegionChange.bind(this)}
-          onRegionChangeComplete={this._onRegionChangeComplete.bind(this)}
-          region={state.mapRegion}
-          />
-      </View>
+      <MapView
+        style={styles.map}
+        onRegionChange={this._onRegionChange.bind(this)}
+        onRegionChangeComplete={this._onRegionChangeComplete.bind(this)}
+        region={state.mapRegion}
+        />
     );
   }
 
@@ -70,10 +67,7 @@ class PlaneMap extends Component {
 
 var styles = StyleSheet.create({
   map: {
-    height: 150,
-    width: 150,
-    margin: 10,
-    borderWidth: 1,
+    flex: 1,
     borderColor: '#000000',
   },
   row: {

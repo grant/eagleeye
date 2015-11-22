@@ -5,6 +5,8 @@
 
 var React = require('react-native');
 var FlightPage = require('./FlightPage');
+var MapPage = require('./MapPage');
+var SettingsPage = require('./SettingsPage');
 var {
   Component,
   View,
@@ -53,28 +55,25 @@ class AppTabBar extends Component {
   }
 
   _renderContent(tabTitle: string) {
-    var color;
     switch (tabTitle) {
       case 'Flights':
-        color = 'blue';
         return (
           <FlightPage/>
         );
         break;
       case 'Eagle Eye':
-        color = 'green';
+        return (
+          <MapPage style={styles.mapPage}/>
+        );
         break;
       case 'Settings':
-        color = 'purple';
+        return (
+          <SettingsPage style={styles.settingsPage}/>
+        );
         break;
+      default:
+        throw new Error('Wrong tab!');
     }
-    var pageText = 'foo';
-    return (
-      <View style={[styles.tabContent, {backgroundColor: color}]}>
-        <Text style={styles.tabText}>{pageText}</Text>
-        <Text style={styles.tabText}>re-renders of the {pageText}</Text>
-      </View>
-    );
   }
 
   _renderTab(tabData: object) {
@@ -104,8 +103,8 @@ class AppTabBar extends Component {
     // Tab bar
     return (
       <TabBarIOS
-        tintColor="white"
-        barTintColor="darkslateblue">
+        tintColor="blue"
+        barTintColor="white">
         {tabBarItems}
       </TabBarIOS>
     );
@@ -120,6 +119,12 @@ var styles = StyleSheet.create({
   tabText: {
     color: 'white',
     margin: 50,
+  },
+  mapPage: {
+    flex: 1,
+    backgroundColor: 'green',
+  },
+  settingsPage: {
   },
 });
 
