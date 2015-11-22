@@ -30,7 +30,7 @@ class FlightListPage extends Component {
     };
     setInterval(() => {
       this.fetchData();
-    }, 5000);
+    }, 2000);
   }
 
   componentDidMount() {
