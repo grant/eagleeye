@@ -22,6 +22,15 @@ function connectToDB(cb) {
   });
 }
 
+function getFlightData(flightId) {
+  var FLIGHT_QUERY_URL = 'http://api.flightradar24.com/common/v1/flight/list.json';
+  var url = FLIGHT_QUERY_URL + '?query=' + flightId + '&fetchBy=flight';
+  request(url, function(err, res) {
+    var json = JSON.parse(res);
+    console.log(json);
+  });
+}
+
 function getData() {
   var flights = DB.collection('flights');
   request(US_FLIGHTS_URL, function (error, response, body) {
@@ -30,7 +39,14 @@ function getData() {
       delete json.full_count;
       delete json.version;
       // Add all records to mongod
-      // 16: flight id
+      // 1: Lat
+      // 2: Lng
+      // 3: Degree rotation
+      // 9: Flight id
+      // 10: Update time in sec
+      // 11: From
+      // 12: To
+      // 16: Other flight id?
       var d = +new Date;
       var records = [];
       for (var i in json)  {
